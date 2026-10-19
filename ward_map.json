@@ -1,0 +1,233 @@
+{
+ "spawn_hint": {
+  "x": -7,
+  "y": -59,
+  "z": 30
+ },
+ "beds": [
+  {
+   "name": "white_bed",
+   "x": -17,
+   "y": -59,
+   "z": 34
+  },
+  {
+   "name": "white_bed",
+   "x": -7,
+   "y": -59,
+   "z": 34
+  },
+  {
+   "name": "white_bed",
+   "x": -17,
+   "y": -59,
+   "z": 35
+  },
+  {
+   "name": "white_bed",
+   "x": -7,
+   "y": -59,
+   "z": 35
+  },
+  {
+   "name": "white_bed",
+   "x": -17,
+   "y": -59,
+   "z": 38
+  },
+  {
+   "name": "white_bed",
+   "x": -7,
+   "y": -59,
+   "z": 38
+  },
+  {
+   "name": "white_bed",
+   "x": -17,
+   "y": -59,
+   "z": 39
+  },
+  {
+   "name": "white_bed",
+   "x": -7,
+   "y": -59,
+   "z": 39
+  },
+  {
+   "name": "white_bed",
+   "x": -15,
+   "y": -54,
+   "z": 37
+  },
+  {
+   "name": "white_bed",
+   "x": -14,
+   "y": -54,
+   "z": 37
+  },
+  {
+   "name": "light_blue_bed",
+   "x": -10,
+   "y": -54,
+   "z": 37
+  },
+  {
+   "name": "light_blue_bed",
+   "x": -9,
+   "y": -54,
+   "z": 37
+  },
+  {
+   "name": "pink_bed",
+   "x": -5,
+   "y": -54,
+   "z": 37
+  },
+  {
+   "name": "pink_bed",
+   "x": -4,
+   "y": -54,
+   "z": 37
+  },
+  {
+   "name": "cyan_bed",
+   "x": 0,
+   "y": -54,
+   "z": 37
+  },
+  {
+   "name": "cyan_bed",
+   "x": 1,
+   "y": -54,
+   "z": 37
+  },
+  {
+   "name": "red_bed",
+   "x": 5,
+   "y": -54,
+   "z": 37
+  },
+  {
+   "name": "red_bed",
+   "x": 6,
+   "y": -54,
+   "z": 37
+  },
+  {
+   "name": "orange_bed",
+   "x": 10,
+   "y": -54,
+   "z": 37
+  },
+  {
+   "name": "orange_bed",
+   "x": 11,
+   "y": -54,
+   "z": 37
+  },
+  {
+   "name": "white_bed",
+   "x": -15,
+   "y": -54,
+   "z": 38
+  },
+  {
+   "name": "white_bed",
+   "x": -14,
+   "y": -54,
+   "z": 38
+  },
+  {
+   "name": "light_blue_bed",
+   "x": -10,
+   "y": -54,
+   "z": 38
+  },
+  {
+   "name": "light_blue_bed",
+   "x": -9,
+   "y": -54,
+   "z": 38
+  },
+  {
+   "name": "pink_bed",
+   "x": -5,
+   "y": -54,
+   "z": 38
+  },
+  {
+   "name": "pink_bed",
+   "x": -4,
+   "y": -54,
+   "z": 38
+  },
+  {
+   "name": "cyan_bed",
+   "x": 0,
+   "y": -54,
+   "z": 38
+  },
+  {
+   "name": "cyan_bed",
+   "x": 1,
+   "y": -54,
+   "z": 38
+  },
+  {
+   "name": "red_bed",
+   "x": 5,
+   "y": -54,
+   "z": 38
+  },
+  {
+   "name": "red_bed",
+   "x": 6,
+   "y": -54,
+   "z": 38
+  },
+  {
+   "name": "orange_bed",
+   "x": 10,
+   "y": -54,
+   "z": 38
+  },
+  {
+   "name": "orange_bed",
+   "x": 11,
+   "y": -54,
+   "z": 38
+  }
+ ],
+ "containers": [
+  {
+   "name": "barrel",
+   "x": -30,
+   "y": -60,
+   "z": 27
+  },
+  {
+   "name": "trapped_chest",
+   "x": -5,
+   "y": -59,
+   "z": 38
+  },
+  {
+   "name": "trapped_chest",
+   "x": -5,
+   "y": -58,
+   "z": 38
+  },
+  {
+   "name": "trapped_chest",
+   "x": -5,
+   "y": -59,
+   "z": 39
+  },
+  {
+   "name": "trapped_chest",
+   "x": -5,
+   "y": -58,
+   "z": 39
+  }
+ ]
+}

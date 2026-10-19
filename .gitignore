@@ -1,0 +1,29 @@
+# downloaded binaries (see server/setup_server.sh and README)
+tools/
+server/*.jar
+server/plugins/*.jar
+server/libraries/
+server/versions/
+server/cache/
+server/config/
+server/plugins/*/
+bot/node_modules/
+bot/package-lock.json
+
+# server runtime state; the world is distributed as server/Hospital.zip
+server/Hospital/
+server/logs/
+server/*.log
+server/usercache.json
+server/banned-*.json
+server/whitelist.json
+server/bukkit.yml
+server/spigot.yml
+server/commands.yml
+
+# bot runtime
+bot/*.log
+*.orig
+__pycache__/
+.DS_Store
+server/.paper/
