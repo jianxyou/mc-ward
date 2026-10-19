@@ -11,6 +11,17 @@ mc_ward/
   tools/node     Node.js (no system install needed)
 ```
 
+## Prerequisites
+
+* **Java 25**: the Minecraft launcher installs one when you run version 26.3 (the setup
+  script finds it on macOS); otherwise install Temurin 25 and make sure `java -version` says 25.
+* **Node.js 20 or newer** from https://nodejs.org (the `canvas` package needs a prebuilt
+  binary, available for macOS and Windows).
+* **Python 3.9+**, no extra packages.
+* Tested on macOS (Apple Silicon) only so far. On Windows, run the commands in
+  `server/setup_server.sh` by hand and start the server with
+  `java -Xmx4G -jar paper.jar nogui`.
+
 ## First-time setup
 
 ```
