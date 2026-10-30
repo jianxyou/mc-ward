@@ -27,3 +27,6 @@ bot/*.log
 __pycache__/
 .DS_Store
 server/.paper/
+
+# previous world backups
+server/Hospital_old*/

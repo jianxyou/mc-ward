@@ -8,7 +8,7 @@ mc_ward/
   bot/bot.js     Mineflayer bot + HTTP bridge (:3000) + browser viewer (:3007)
   ward.py        Python client: Bot (bridge) and Rcon (server console)
   ward_map.json  named places, beds and containers of the ward (Sophie, 29 Oct)
-  example_episode.py  Sophie's walk-through of the named API (needs her world, see below)
+  example_episode.py  Sophie's walk-through of the named API (runs on the 29 Oct world)
   npc/patient_script.dsc  Denizen dialogue for the four patient NPCs (Sophie; plugin not installed yet)
   tools/node     Node.js (no system install needed)
 ```
@@ -106,20 +106,37 @@ Named spots: `spawn_hint` (entrance, -7 -59 30), `in_hospital`, `first_floor` (y
 (second floor, z = 33) and `pos_<potion>_potion` standing spots in the pharmacy.
 Containers: a double chest per patient (`patient_<n>_chest`, z = 33/34) and one per potion
 in the pharmacy (`strength`, `placebo`, `regeneration`, `fire_resistance`, `damage`).
-23 bed blocks on the second floor.
+19 bed blocks on the second floor (the map still lists 23, see below).
 
-**Status of our copy of the world (checked over RCON on 30 Oct):** all 23 bed blocks are
-there, the spots `in_hospital`, `first_floor` and `second_floor` are reachable, but none of
-the 18 named container blocks exist (the blocks are air) and the `unit_patient_*` /
-`pos_*_potion` spots are inside blocks, so `takeByName`, `putByName` and
-`example_episode.py` cannot run here yet. Sophie built those in her own copy of the world;
-we need her updated `Hospital` world folder (zip of `saves/Hospital`) to replace
-`server/Hospital`. Two things to check with her in the map: `placebo_potion_chest` and
-`damage_potion_chest` have the same coordinates (8 -54 34/35), and the white bed block
-at (-15 -54 37) that exists in the world is missing from the list.
+**World status (30 Oct):** `server/Hospital` and `Hospital.zip` are Sophie's save of 29 Oct
+(the 19 Oct world is kept locally in `server/Hospital_old_1019/`, ignored by git). Checked
+over RCON on that world: all 18 named container blocks are chests, every named spot is
+reachable (the `pos_*` spots are the sign blocks, so the bot stops next to them), and the
+whole flow runs: `gotoPlace` → `takeByName` from the strength chest → `changeHandItem` →
+`gotoContainer` → `putByName` into `patient_one_chest`, with the grader reading the potion
+back over RCON.
 
-The old 2×2 stack of trapped chests at (-5, -58/-59, 38/39) is still in our copy and still
-works with the coordinate API. The server spawns players on top of the trees near
+To settle with Sophie:
+
+* Each pharmacy chest holds one plain `minecraft:potion` with no `potion_contents`, so the
+  five drugs differ only by which chest they sit in. If grading needs to tell them apart in
+  the inventory, give each a `potion_contents` or a `custom_name`.
+* The pharmacy has five double chests but the map names four: `placebo_potion_chest` and
+  `damage_potion_chest` both point at (8 -54 34/35), and the chest at (11 -54 37/38), next
+  to the "Placebo" sign at (10 -54 37), is not listed. The sign at (9 -54 34) also reads
+  Placebo instead of Damage.
+* The orange beds at (10/11 -54 37/38) were removed for the pharmacy but are still listed.
+* A newer map (not in the repo yet) adds `pos_give_patient_one` … `four`: `three` is
+  (1 -54 33), next to patient four's chest, and `four` repeats `one`; by the pattern they
+  should be x = -14, -9, -4, 1.
+
+Grader note: a double chest has 54 slots split over its two blocks and `data get block` on
+one block shows only that half (a deposit lands in whichever half has the first free slot),
+so read both blocks.
+
+The old 2×2 stack of trapped chests at (-5, -58/-59, 38/39) and the barrel at (-30, -60, 27)
+are still in this world and work with the coordinate API; `reset()` in `example_episode.py`
+still fills the trapped chest. The server spawns players on top of the trees near
 (0, -50, 0); teleport the bot to (-7, -59, 30) first, otherwise the pathfinder finds no way
 in.
 
