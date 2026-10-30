@@ -4,61 +4,73 @@
   "y": -59,
   "z": 30
  },
- "beds": [
-  {
-   "name": "white_bed",
-   "x": -17,
-   "y": -59,
+ "in_hospital":{
+  "x": -2,
+  "y": -59,
+  "z": 29
+ },
+ "first_floor":{
+  "x": -12,
+  "y": -59,
+  "z": 27
+ },
+  "second_floor":{
+  "x": -16,
+  "y": -54,
+  "z": 30
+ },
+ "pharmacy":{
+  "x": 10,
+  "y": -54,
+  "z": 34  
+ },
+ "unit_patient_one":{
+  "x": -15,
+  "y": -54,
+  "z": 33  
+ },
+"unit_patient_two":{
+  "x": -10,
+  "y": -54,
+  "z": 33  
+ },
+ "unit_patient_three":{
+  "x": -5,
+  "y": -54,
+  "z": 33  
+ },
+ "unit_patient_four":{
+  "x": 0,
+  "y": -54,
+  "z": 33  
+ },
+ "pos_strength_potion":{
+   "x": 10,
+   "y": -54,
    "z": 34
   },
-  {
-   "name": "white_bed",
-   "x": -7,
-   "y": -59,
-   "z": 34
-  },
-  {
-   "name": "white_bed",
-   "x": -17,
-   "y": -59,
-   "z": 35
-  },
-  {
-   "name": "white_bed",
-   "x": -7,
-   "y": -59,
-   "z": 35
-  },
-  {
-   "name": "white_bed",
-   "x": -17,
-   "y": -59,
-   "z": 38
-  },
-  {
-   "name": "white_bed",
-   "x": -7,
-   "y": -59,
-   "z": 38
-  },
-  {
-   "name": "white_bed",
-   "x": -17,
-   "y": -59,
-   "z": 39
-  },
-  {
-   "name": "white_bed",
-   "x": -7,
-   "y": -59,
-   "z": 39
-  },
-  {
-   "name": "white_bed",
-   "x": -15,
+ "pos_placebo_potion":{
+   "x": 10,
    "y": -54,
    "z": 37
   },
+ "pos_regeneration_potion":{
+   "x": 10,
+   "y": -54,
+   "z": 40
+  },
+ "pos_fire_resistance_potion":{
+   "x": 9,
+   "y": -54,
+   "z": 37
+  },
+  "pos_damage_potion":{
+   "x": 9,
+   "y": -54,
+   "z": 34
+  },
+
+ "beds": [
   {
    "name": "white_bed",
    "x": -14,
@@ -200,34 +212,112 @@
  ],
  "containers": [
   {
-   "name": "barrel",
-   "x": -30,
-   "y": -60,
-   "z": 27
+   "name": "patient_one_chest",
+   "x": -13,
+   "y": -54,
+   "z": 33
   },
   {
-   "name": "trapped_chest",
-   "x": -5,
-   "y": -59,
+   "name": "patient_one_chest",
+   "x": -13,
+   "y": -54,
+   "z": 34
+  },
+  {
+   "name": "patient_two_chest",
+   "x": -8,
+   "y": -54,
+   "z": 33
+  },
+  {
+   "name": "patient_two_chest",
+   "x": -8,
+   "y": -54,
+   "z": 34
+  },
+  {
+   "name": "patient_three_chest",
+   "x": -3,
+   "y": -54,
+   "z": 33
+  },
+  {
+   "name": "patient_three_chest",
+   "x": -3,
+   "y": -54,
+   "z": 34
+  },
+  {
+   "name": "patient_four_chest",
+   "x": 2,
+   "y": -54,
+   "z": 33
+  },
+  {
+   "name": "patient_four_chest",
+   "x": 2,
+   "y": -54,
+   "z": 34
+  },
+  {
+   "name": "strength_potion_chest",
+   "x": 11,
+   "y": -54,
+   "z": 34
+  },
+  {
+   "name": "strength_potion_chest",
+   "x": 11,
+   "y": -54,
+   "z": 35
+  },
+  {
+   "name": "placebo_potion_chest",
+   "x": 8,
+   "y": -54,
+   "z": 34
+  },
+  {
+   "name": "placebo_potion_chest",
+   "x": 8,
+   "y": -54,
+   "z": 35
+  },
+  {
+   "name": "regeneration_potion_chest",
+   "x": 10,
+   "y": -54,
+   "z": 41
+  },
+  {
+   "name": "regeneration_potion_chest",
+   "x": 9,
+   "y": -54,
+   "z": 41
+  },
+  {
+   "name": "fire_resistance_potion_chest",
+   "x": 8,
+   "y": -54,
    "z": 38
   },
   {
-   "name": "trapped_chest",
-   "x": -5,
-   "y": -58,
-   "z": 38
+   "name": "fire_resistance_potion_chest",
+   "x": 8,
+   "y": -54,
+   "z": 37
   },
   {
-   "name": "trapped_chest",
-   "x": -5,
-   "y": -59,
-   "z": 39
+   "name": "damage_potion_chest",
+   "x": 8,
+   "y": -54,
+   "z": 34
   },
   {
-   "name": "trapped_chest",
-   "x": -5,
-   "y": -58,
-   "z": 39
+   "name": "damage_potion_chest",
+   "x": 8,
+   "y": -54,
+   "z": 35
   }
  ]
 }

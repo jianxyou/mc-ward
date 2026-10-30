@@ -9,7 +9,7 @@ part of a longer conversation with cancellations and distractor chores.
 """
 import re
 import time
-
+import json
 from ward import Bot, Rcon
 
 # The 2x2 stack of trapped chests near the beds: top one is the pharmacy for now,
@@ -22,6 +22,9 @@ BEDSIDE = {                   # bed label -> chest that stands for its bedside t
 }
 ENTRANCE = (-7, -59, 30)
 
+with open("ward_map.json", "r", encoding="utf-8") as m:
+    data = json.load(m)
+    
 
 def container_items(rc, pos):
     """Grader: read a container directly from the server, bypassing the bot."""
@@ -40,12 +43,26 @@ def reset(rc):
     rc.cmd('time set day')
     time.sleep(2)
 
+#def move(bot, pos):
+#    bot.goto(data[pos]['x'], data[pos]['y'], data[pos]['z'], 1)
 
 def main():
     bot, rc = Bot(), Rcon()
     reset(rc)
-    print('pharmacy holds:', container_items(rc, PHARMACY))
 
+    """
+    bot.gotoPlace("first_floor") # patient_one_chest
+
+    bot.gotoPlace("unit_patient_one") # patient_one_chest
+    bot.gotoPlace("unit_patient_three") # patient_one_chest
+    bot.gotoPlace("unit_patient_one") # patient_one_chest
+    bot.gotoCoord(9,-54, 37)
+    """
+    bot.gotoPlace("unit_patient_four")
+    bot.gotoPlace("pos_strength_potion")
+    bot.takeByName("strength_potion_chest", 'potion')
+
+    """
     order = {'patient': 'bed 1', 'item': 'potion'}
     print(f"doctor: give {order['patient']} a healing potion")
 
@@ -61,6 +78,7 @@ def main():
     delivered = {label for label, pos in BEDSIDE.items() if 'potion' in container_items(rc, pos)}
     expected = {order['patient']}
     print('omission' if not delivered else 'wrong patient' if delivered != expected else 'correct')
+    """
 
 
 if __name__ == '__main__':

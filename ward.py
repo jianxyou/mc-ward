@@ -7,7 +7,10 @@ Two channels:
 
     from ward import Bot, Rcon
     bot = Bot(); print(bot.state()['beds'][:3])
-    rc = Rcon(); print(rc.cmd('data get block -5 -58 38 Items'))
+    bot.gotoPlace('pharmacy'); bot.takeByName('strength_potion_chest', 'potion')
+    rc = Rcon(); print(rc.cmd('data get block 11 -54 34 Items'))
+
+Named places and containers are the keys of ward_map.json (the bot reads that file).
 """
 import json
 import socket
@@ -40,20 +43,46 @@ class Bot:
     def state(self):
         return self._get('/state')
 
-    def goto(self, x, y, z, range=1):
-        return self._post('/goto', {'x': x, 'y': y, 'z': z, 'range': range})
+    # --- movement ---
+    def gotoCoord(self, x, y, z, range=1):
+        return self._post('/gotoCoord', {'x': x, 'y': y, 'z': z, 'range': range})
 
+    def gotoPlace(self, placeName):
+        """Walk to a named spot of ward_map.json (e.g. 'pharmacy', 'unit_patient_one')."""
+        return self._post('/gotoPlace', {'placeName': placeName})
+
+    def gotoContainer(self, containerName):
+        """Walk next to a named container of ward_map.json (e.g. 'patient_one_chest')."""
+        return self._post('/gotoContainer', {'containerName': containerName})
+
+    def changeHandItem(self, itemName):
+        """Hold `itemName` from the inventory in the main hand."""
+        return self._post('/changeHandItem', {'itemName': itemName})
+
+    # --- containers ---
     def chest(self, x, y, z):
         return self._post('/chest', {'x': x, 'y': y, 'z': z})
 
-    def take(self, x, y, z, item, count=1):
+    def takeByCoord(self, x, y, z, item, count=1):
         """Walk to a container and take `count` of `item` (e.g. 'potion') into the inventory."""
-        return self._post('/take', {'x': x, 'y': y, 'z': z, 'item': item, 'count': count})
+        return self._post('/takeByCoord', {'x': x, 'y': y, 'z': z, 'item': item, 'count': count})
 
-    def put(self, x, y, z, item, count=1):
+    def takeByName(self, containerName, item, count=1):
+        """Walk to a named container and take `count` of `item` into the inventory."""
+        return self._post('/takeByName', {'containerName': containerName, 'item': item, 'count': count})
+
+    def putByCoord(self, x, y, z, item, count=1):
         """Walk to a container and put `count` of `item` from the inventory into it."""
-        return self._post('/put', {'x': x, 'y': y, 'z': z, 'item': item, 'count': count})
+        return self._post('/putByCoord', {'x': x, 'y': y, 'z': z, 'item': item, 'count': count})
 
+    def putByName(self, containerName, item, count=1):
+        """Walk to a named container and put `count` of `item` from the inventory into it."""
+        return self._post('/putByName', {'containerName': containerName, 'item': item, 'count': count})
+
+    # old names, kept so earlier scripts still run
+    goto, take, put = gotoCoord, takeByCoord, putByCoord
+
+    # --- misc ---
     def chat(self, message):
         return self._post('/chat', {'message': message})
 
