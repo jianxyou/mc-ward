@@ -1,5 +1,7 @@
 # mc_ward — Minecraft pipeline for the ward project
 
+**New here? [RUN_DEMO.md](RUN_DEMO.md) has the step-by-step instructions for Windows and macOS.**
+
 Server (Minecraft 26.3, Sophie's `Hospital` world) → Mineflayer bot (Node) → HTTP bridge → Python.
 
 ```
@@ -21,9 +23,8 @@ mc_ward/
 * **Node.js 20 or newer** from https://nodejs.org (the `canvas` package needs a prebuilt
   binary, available for macOS and Windows).
 * **Python 3.9+**, no extra packages.
-* Tested on macOS (Apple Silicon) only so far. On Windows, run the commands in
-  `server/setup_server.sh` by hand and start the server with
-  `java -Xmx4G -jar paper.jar nogui`.
+* Tested on macOS (Apple Silicon). On Windows use `server\setup_server.ps1`, which
+  downloads the same files and writes `server\start_server.bat`.
 
 ## First-time setup
 
