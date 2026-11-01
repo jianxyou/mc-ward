@@ -8,6 +8,7 @@ mc_ward/
   bot/bot.js     Mineflayer bot + HTTP bridge (:3000) + browser viewer (:3007)
   ward.py        Python client: Bot (bridge) and Rcon (server console)
   ward_map.json  named places, beds and containers of the ward (Sophie, 29 Oct)
+  demo.py        one scripted episode: doctor orders, one cancellation, bot acts, grader reads the world
   example_episode.py  Sophie's walk-through of the named API (runs on the 29 Oct world)
   npc/patient_script.dsc  Denizen dialogue for the four patient NPCs (Sophie; plugin not installed yet)
   tools/node     Node.js (no system install needed)
@@ -71,6 +72,27 @@ Bridge endpoints (`POST` unless noted):
 in its `containers` list (a double chest is listed twice, either block works). The bot
 re-reads the file on every request, so edits need no restart. Unknown names and
 non-container blocks come back as a 400 with a readable error.
+
+## Demo (no language model)
+
+```
+python3 demo.py            # memory rewrites the order on cancellation
+python3 demo.py --naive    # memory only appends; the cancelled order is still carried out
+```
+
+The doctor gives three orders and withdraws one. `reset()` empties the patients' bedside
+chests and stocks three pharmacy chests with one typed potion each (strength,
+regeneration, fire resistance, via `potion_contents`, so the grader can tell them apart).
+The agent is a few lines of Python standing in for the decision model; it walks to the
+pharmacy, takes the potion, walks to the patient and puts it in the bedside chest. The
+grader never asks the agent anything: it reads every bedside chest over RCON and reports
+correct / omission / commission / wrong drug per patient. Run on 1 Nov: the rewriting
+memory scores 2 correct, the appending memory adds one commission (patient one gets the
+cancelled strength potion). About 40 s per episode.
+
+Grader detail: `data get block … Items` prints nested components as `{...}`, so the potion
+type has to be asked slot by slot with
+`data get block x y z Items[k].components."minecraft:potion_contents".potion`.
 
 ## Setup notes (already done on this machine)
 
