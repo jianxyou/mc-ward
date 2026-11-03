@@ -11,6 +11,7 @@ mc_ward/
   ward.py        Python client: Bot (bridge) and Rcon (server console)
   ward_map.json  named places, beds and containers of the ward (Sophie, 29 Oct)
   demo.py        one scripted episode: doctor orders, one cancellation, bot acts, grader reads the world
+  llm_nurse.py   the nurse model (Ollama): reads the memory, says which orders are in force
   example_episode.py  Sophie's walk-through of the named API (runs on the 29 Oct world)
   npc/patient_script.dsc  Denizen dialogue for the four patient NPCs (Sophie; plugin not installed yet)
   tools/node     Node.js (no system install needed)
@@ -94,6 +95,24 @@ cancelled strength potion). About 40 s per episode.
 Grader detail: `data get block … Items` prints nested components as `{...}`, so the potion
 type has to be asked slot by slot with
 `data get block x y z Items[k].components."minecraft:potion_contents".potion`.
+
+## Nurse model (Ollama)
+
+The doctor's lines stay fixed (`SCRIPT` in demo.py); a language model plays the nurse.
+It gets the messages the memory kept and must answer, in JSON, which orders are still in
+force. `llm_nurse.py` does the call (Ollama's `format: "json"` removes the ``` fences and
+missing words seen with free text) and keeps only patients and drugs the ward knows.
+
+```
+python3 llm_nurse.py                 # no Minecraft needed: asks the model for both memories
+python3 demo.py --llm                # full episode, model reads the rewritten memory
+python3 demo.py --llm --naive        # model reads everything, must notice the cancellation itself
+python3 demo.py --llm qwen2.5        # any model pulled in Ollama
+```
+
+Needs Ollama (https://ollama.com) and `ollama pull llama3.2`. The interesting case is
+`--llm --naive`: the cancellation is in the memory, and the question is whether the
+model still sends the strength potion to patient one.
 
 ## Setup notes (already done on this machine)
 

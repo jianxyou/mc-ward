@@ -86,6 +86,29 @@ summary: {'correct': 2, 'omission': 0, 'commission': 0, 'wrong drug': 0}
 summary: {'correct': 2, 'omission': 0, 'commission': 1, 'wrong drug': 0}
 ```
 
+## Letting a language model play the nurse
+
+Install Ollama from https://ollama.com, then in a terminal:
+
+```
+ollama pull llama3.2
+python llm_nurse.py
+```
+
+This needs no Minecraft. It shows the model the doctor's messages twice, once with the
+cancellation still in memory and once with the memory rewritten, and prints which orders
+the model thinks are in force. The right answer is patient three and patient four only.
+
+To run the full episode with the model deciding (server and bot running):
+
+```
+python demo.py --llm
+python demo.py --llm --naive
+```
+
+The prompt the model sees is `PROMPT` at the top of `llm_nurse.py`. Changing it and
+re-running `python llm_nurse.py` is the quickest way to experiment.
+
 ## Watching the bot
 
 * Browser: open http://localhost:3007 while the demo runs (first-person view of the bot).

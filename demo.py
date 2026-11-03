@@ -1,17 +1,19 @@
 """One scripted ward episode: a doctor gives three orders and withdraws one.
 
-    python3 demo.py            # agent whose memory rewrites the order on cancellation
-    python3 demo.py --naive    # agent whose memory only appends; the cancelled order survives
+    python3 demo.py                  # memory rewrites the order on cancellation
+    python3 demo.py --naive          # memory only appends; the cancelled order survives
+    python3 demo.py --llm            # a language model (Ollama, llama3.2) plays the nurse
+    python3 demo.py --llm --naive    # ... and has to notice the cancellation by itself
 
-Server and bot must be running (see README). There is no language model here: the
-"agent" is a few lines of Python standing in for the decision model. The point is the
-loop the benchmark will use: doctor messages -> memory -> actions in the world ->
-grading from the world state, never from what the agent says.
+Server and bot must be running (see README). Without --llm the "agent" is a few lines
+of Python standing in for the decision model. The point is the loop the benchmark will
+use: doctor messages -> memory -> actions in the world -> grading from the world state,
+never from what the agent says.
 """
+import argparse
 import json
 import os
 import re
-import sys
 import time
 
 from ward import Bot, Rcon
@@ -62,21 +64,31 @@ def reset(rc):
 
 # ---------------------------------------------------------------- the agent
 class Memory:
-    """Orders the agent believes are in force.
+    """What the agent kept of the doctor's messages.
 
-    rewrite=True : a cancellation removes the order (the entry is rewritten).
-    rewrite=False: a cancellation is only appended to the log, the order stays.
+    rewrite=True : a cancellation deletes the order's entry (the memory is rewritten).
+    rewrite=False: a cancellation is just one more entry, the order's entry stays.
     """
 
     def __init__(self, rewrite):
-        self.rewrite, self.orders, self.log = rewrite, [], []
+        self.rewrite, self.entries = rewrite, []
 
     def hear(self, kind, patient, drug, text):
-        self.log.append(text)
-        if kind == 'order':
-            self.orders.append((patient, drug))
-        elif kind == 'cancel' and self.rewrite:
-            self.orders = [o for o in self.orders if o != (patient, drug)]
+        if kind == 'cancel' and self.rewrite:
+            self.entries = [e for e in self.entries
+                            if not (e['kind'] == 'order' and (e['patient'], e['drug']) == (patient, drug))]
+        else:
+            self.entries.append({'kind': kind, 'patient': patient, 'drug': drug, 'text': text})
+
+    @property
+    def notes(self):
+        """The messages as text, for a language model."""
+        return [e['text'] for e in self.entries]
+
+    @property
+    def orders(self):
+        """The rule-based nurse: every order entry still in memory is in force."""
+        return [(e['patient'], e['drug']) for e in self.entries if e['kind'] == 'order']
 
 
 def deliver(bot, patient, drug):
@@ -124,7 +136,7 @@ def grade(rc, expected):
 
 
 # ---------------------------------------------------------------- episode
-def main(rewrite):
+def main(rewrite, llm=None):
     bot, rc = Bot(), Rcon()
     print('resetting the ward')
     reset(rc)
@@ -140,9 +152,18 @@ def main(rewrite):
         else:
             expected.pop(patient, None)
         time.sleep(1)
-    print(f'\nagent believes these orders are in force: {memory.orders}')
+    print('\nmemory now holds:')
+    for n in memory.notes:
+        print(f'  - {n}')
+    if llm:
+        import llm_nurse
+        orders = llm_nurse.ask(memory.notes, model=llm)
+        print(f'\nnurse model ({llm}) says these orders are in force: {orders}')
+    else:
+        orders = memory.orders
+        print(f'\nrule-based nurse says these orders are in force: {orders}')
     print('\n--- agent acts ---')
-    for patient, drug in memory.orders:
+    for patient, drug in orders:
         t = time.time()
         deliver(bot, patient, drug)
         print(f'  delivered {drug} to patient {patient}  ({time.time() - t:.0f}s)')
@@ -152,4 +173,9 @@ def main(rewrite):
 
 
 if __name__ == '__main__':
-    main(rewrite='--naive' not in sys.argv)
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--naive', action='store_true', help='memory only appends, never rewrites')
+    ap.add_argument('--llm', nargs='?', const='llama3.2', default=None, metavar='MODEL',
+                    help='let an Ollama model play the nurse (default model: llama3.2)')
+    args = ap.parse_args()
+    main(rewrite=not args.naive, llm=args.llm)
