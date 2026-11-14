@@ -1,7 +1,7 @@
 """The nurse model: reads what the memory kept of the doctor's messages and says
 which orders are still in force.
 
-    python3 llm_nurse.py                 # needs Ollama running with llama3.2 (no Minecraft needed)
+    python3 llm_nurse.py                 # needs Ollama running with AI model (no Minecraft needed)
     python3 llm_nurse.py --model qwen2.5  # any model you have pulled in Ollama
 
 Run on its own it asks the model twice: once with the cancellation line in memory,
@@ -16,11 +16,19 @@ import argparse
 import json
 import os
 import sys
+import time
 import urllib.request
 
 OLLAMA = os.environ.get('OLLAMA_URL', 'http://localhost:11434') + '/api/generate'
 PATIENTS = ['one', 'two', 'three', 'four']
 DRUGS = ['strength', 'regeneration', 'fire_resistance']
+
+# AI Model could be :
+# qwen3.5:4b
+# llama3:2:latest
+# deepseek-r1:1.5b
+# But needs to be the same as demo.py
+AI = "deepseek-r1:1.5b"
 
 PROMPT = """You are a nurse on a ward with patients one, two, three and four.
 The pharmacy has these potions: {drugs}.
@@ -33,10 +41,11 @@ Doctor's messages:
 
 Answer with JSON only, in this exact shape:
 {{"orders": [{{"patient": "one", "drug": "strength"}}]}}
-Use an empty list if nothing is in force."""
+Use an empty list if nothing is in force only if there is no doctor's messages, and remove cancel order
+"""
 
 
-def ask(notes, model='llama3.2', temperature=0.0):
+def ask(notes, model=AI, temperature=0.0):
     """notes: list of doctor messages as the memory kept them. Returns [(patient, drug), ...]."""
     prompt = PROMPT.format(drugs=', '.join(DRUGS),
                            notes='\n'.join(f'- {n}' for n in notes) or '- (nothing)')
@@ -68,7 +77,7 @@ def parse(text):
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
-    ap.add_argument('--model', default='llama3.2')
+    ap.add_argument('--model', default=AI)
     ap.add_argument('--runs', type=int, default=3, help='ask each memory this many times')
     args = ap.parse_args()
 
@@ -77,6 +86,9 @@ if __name__ == '__main__':
     for name, rewrite in [('memory keeps everything (naive)', False),
                           ('memory rewritten on cancel', True)]:
         mem = Memory(rewrite)
+        mem.clear()
+        time.sleep(20) # Depending on your computer's speed, to prevent conflicts between prompt
+
         for kind, patient, drug, text in SCRIPT:
             mem.hear(kind, patient, drug, text)
         print(f'\n== {name} ==')

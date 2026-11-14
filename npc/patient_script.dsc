@@ -13,12 +13,12 @@ patient_one_interact:
         1:
             chat trigger:
                 1:
-                    trigger: /^(?i)\b(hello|hi|good morning|good afternoon|good evening|hey |how are you)\b/ patient one!
+                    trigger: /regex:^(?i)\b(hello|hi|good morning|good afternoon|good evening|hey |how are you)\b/ patient one!
                     script:
                     - chat "Hello Doctor, I'm burning"
                     - chat "Do you have something ?"
                 2:
-                    trigger: /^(?i)\b(this is for you| I got it| I got you| this in on me | I put it on the chest|Bye|Goodbye)\b/
+                    trigger: /regex:^(?i)\b(this is for you|I got it|I got you|this in on me|I put it on the chest|Bye|Goodbye|This potion is for you)\b/
                     script:
                     - chat "Thank you!"
                     - chat "See you later Doctor!"
@@ -39,12 +39,12 @@ patient_two_interact:
         1:
             chat trigger:
                 1:
-                    trigger: /^(?i)\b(hello|hi|good morning|good afternoon|good evening|hey |how are you)\b/ patient one!
+                    trigger: /regex:^(?i)\b(hello|hi|good morning|good afternoon|good evening|hey |how are you)\b/ patient two!
                     script:
                     - chat "Hello Doctor, I fell again."
                     - chat "Give me something!"
                 2:
-                    trigger: /^(?i)\b(this is for you| I got it| I got you| this in on me | I put it on the chest|Bye|Goodbye)\b/
+                    trigger: /regex:^(?i)\b(this is for you|I got it|I got you|this in on me|I put it on the chest|Bye|Goodbye|This potion is for you)\b/
                     script:
                     - chat "Thank you young folk!"
                     - chat "Goodbye"
@@ -65,12 +65,12 @@ patient_three_interact:
         1:
             chat trigger:
                 1:
-                    trigger: /^(?i)\b(hello|hi|good morning|good afternoon|good evening|hey |how are you)\b/ patient one!
+                    trigger: /regex:^(?i)\b(hello|hi|good morning|good afternoon|good evening|hey |how are you)\b/ patient three!
                     script:
                     - chat "Hi Doctor, I'm feeling dizzy"
                     - chat "Am I still alive ?"
                 2:
-                    trigger: /^(?i)\b(this is for you| I got it| I got you| this in on me | I put it on the chest|Bye|Goodbye)\b/
+                    trigger: /regex:^(?i)\b(this is for you|I got it|I got you|this in on me|I put it on the chest|Bye|Goodbye|This potion is for you)\b/
                     script:
                     - chat "Thanks."
                     - chat "Bye..."
@@ -91,11 +91,11 @@ patient_four_interact:
         1:
             chat trigger:
                 1:
-                    trigger: /^(?i)\b(hello|hi|good morning|good afternoon|good evening|hey |how are you)\b/ patient one!
+                    trigger: /regex:^(?i)\b(hello|hi|good morning|good afternoon|good evening|hey |how are you)\b/ patient four!
                     script:
                     - chat "Good morning Doctor, I'm quite sick"
                     - chat "#Cough# Give me some medecine"
                 2:
-                    trigger: /^(?i)\b(this is for you| I got it| I got you| this in on me | I put it on the chest|Bye|Goodbye)\b/
+                    trigger: /regex:^(?i)\b(this is for you|I got it|I got you|this in on me|I put it on the chest|Bye|Goodbye|This potion is for you)\b/
                     script:
                     - chat "#Cough Cough# Bye doctor!"

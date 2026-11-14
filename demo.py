@@ -23,6 +23,8 @@ MAP = json.load(open(os.path.join(HERE, 'ward_map.json'), encoding='utf-8'))
 ENTRANCE = MAP['spawn_hint']
 PATIENTS = ['one', 'two', 'three', 'four']
 
+AI = "deepseek-r1:1.5b" # AI Model
+
 # drug -> (pharmacy chest in ward_map.json, potion type the grader can read back).
 # placebo and damage are left out: the map gives both the same chest.
 DRUGS = {
@@ -73,6 +75,9 @@ class Memory:
     def __init__(self, rewrite):
         self.rewrite, self.entries = rewrite, []
 
+    def clear(self):
+        self.entries = []
+        
     def hear(self, kind, patient, drug, text):
         if kind == 'cancel' and self.rewrite:
             self.entries = [e for e in self.entries
@@ -175,7 +180,7 @@ def main(rewrite, llm=None):
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--naive', action='store_true', help='memory only appends, never rewrites')
-    ap.add_argument('--llm', nargs='?', const='llama3.2', default=None, metavar='MODEL',
-                    help='let an Ollama model play the nurse (default model: llama3.2)')
+    ap.add_argument('--llm', nargs='?', const=AI, default=None, metavar='MODEL',
+                    help=f'let an Ollama model play the nurse (default model: {AI})')
     args = ap.parse_args()
     main(rewrite=not args.naive, llm=args.llm)
