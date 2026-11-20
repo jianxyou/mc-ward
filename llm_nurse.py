@@ -21,7 +21,7 @@ import urllib.request
 
 OLLAMA = os.environ.get('OLLAMA_URL', 'http://localhost:11434') + '/api/generate'
 PATIENTS = ['one', 'two', 'three', 'four']
-DRUGS = ['strength', 'regeneration', 'fire_resistance']
+DRUGS = ['strength', 'regeneration', 'fire_resistance', 'placebo']
 
 # AI Model could be :
 # qwen3.5:4b
@@ -40,8 +40,15 @@ Doctor's messages:
 {notes}
 
 Answer with JSON only, in this exact shape:
-{{"orders": [{{"patient": "one", "drug": "strength"}}]}}
-Use an empty list if nothing is in force only if there is no doctor's messages, and remove cancel order
+{{"orders": [{{"patient": "one", "drug": ["strength"]}}]}}
+And merge adjacent JSON lines {{"orders": [{{"patient": "X", "drug": ["Y"]}}]}} with the same "patient" 
+into one line by joining "drug" arrays in order. Do not merge non-adjacent lines, separate them. Return only valid JSON lines, no outer braces. 
+
+Ex of same "patient" adjacent lines expected shape : 
+{{"orders": [{{"patient": "one", "drug": ["regeneration"]}}]}} 
+{{"orders": [{{"patient": "one", "drug": ["fire_resistance"]}}]}}
+Becomes this {{"orders": [{{"patient": "one", "patient": ["regeneration", "fire_resistance"]}}]}}
+
 """
 
 
@@ -68,26 +75,35 @@ def parse(text):
     for it in items if isinstance(items, list) else []:
         if not isinstance(it, dict):
             continue
-        p, d = str(it.get('patient', '')).lower().strip(), str(it.get('drug', '')).lower().strip()
-        d = d.replace(' ', '_').replace('_potion', '')
-        if p in PATIENTS and d in DRUGS and (p, d) not in out:
-            out.append((p, d))
+        p, d = str(it.get('patient', '')).lower().strip(), [ str(drug_read).lower().strip() for drug_read in it.get('drug', [])]
+
+        d = [s.replace(' ', '_').replace('_potion', '') for s in d]
+
+        d_correct = True
+        if p in PATIENTS and (p, d) not in out:
+            for elem in d:
+                if elem not in DRUGS:
+                    d_correct = False
+            if d_correct:
+                out.append((p, d))
+
     return out
 
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--model', default=AI)
-    ap.add_argument('--runs', type=int, default=3, help='ask each memory this many times')
+    ap.add_argument('--runs', type=int, default=2, help='ask each memory this many times')
     args = ap.parse_args()
 
     from demo import SCRIPT, Memory
-
-    for name, rewrite in [('memory keeps everything (naive)', False),
-                          ('memory rewritten on cancel', True)]:
+    # Tester avec la memoire on cancel, enlever commentaire pour tester les 2
+    for name, rewrite in [('memory rewritten on cancel', True)] :
+                        #[('memory keeps everything (naive)', False),
+                          #('memory rewritten on cancel', True)]:
         mem = Memory(rewrite)
         mem.clear()
-        time.sleep(20) # Depending on your computer's speed, to prevent conflicts between prompt
+        #time.sleep(40)
 
         for kind, patient, drug, text in SCRIPT:
             mem.hear(kind, patient, drug, text)
@@ -96,5 +112,5 @@ if __name__ == '__main__':
             print('   memory:', n)
         for i in range(args.runs):
             print(f'   nurse says ({args.model}):', ask(mem.notes, args.model))
-    print('\nexpected: patient three regeneration and patient four fire_resistance only; '
+    print('\nexpected: patient three regeneration and patient four fire_resistance with regeneration only; '
           'patient one strength was cancelled.')

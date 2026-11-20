@@ -26,11 +26,12 @@ PATIENTS = ['one', 'two', 'three', 'four']
 AI = "deepseek-r1:1.5b" # AI Model
 
 # drug -> (pharmacy chest in ward_map.json, potion type the grader can read back).
-# placebo and damage are left out: the map gives both the same chest.
+# damage potions are left out: the map gives both the same chest.
 DRUGS = {
     'strength': ('strength_potion_chest', 'minecraft:strength'),
     'regeneration': ('regeneration_potion_chest', 'minecraft:regeneration'),
     'fire_resistance': ('fire_resistance_potion_chest', 'minecraft:fire_resistance'),
+    'placebo': ('placebo_potion_chest', 'minecraft:water'),
 }
 
 # what the doctor says, in order
@@ -39,6 +40,7 @@ SCRIPT = [
     ('order', 'three', 'regeneration', 'Patient three needs a regeneration potion.'),
     ('cancel', 'one', 'strength', 'Cancel the strength potion for patient one, blood pressure is up.'),
     ('order', 'four', 'fire_resistance', 'And a fire resistance potion for patient four, please.'),
+    ('order', 'four', 'regeneration', 'And a regeneration potion for patient four, please.'),
 ]
 
 
@@ -56,8 +58,11 @@ def reset(rc):
         halves = blocks(chest)
         for pos in halves:
             rc.cmd('data modify block %d %d %d Items set value []' % pos)
-        rc.cmd('item replace block %d %d %d container.0 with '
-               'minecraft:potion[potion_contents={potion:"%s"}] 1' % (*halves[0], potion))
+        
+        for slot in range(18): # 18 potions, to have enough potions
+            rc.cmd('item replace block %d %d %d container.%d with '
+                   'minecraft:potion[potion_contents={potion:"%s"}] 1' % (*halves[0], slot, potion))
+
     rc.cmd('clear WardBot')
     rc.cmd('tp WardBot %d %d %d' % (ENTRANCE['x'], ENTRANCE['y'], ENTRANCE['z']))
     rc.cmd('time set day')
@@ -94,13 +99,16 @@ class Memory:
     def orders(self):
         """The rule-based nurse: every order entry still in memory is in force."""
         return [(e['patient'], e['drug']) for e in self.entries if e['kind'] == 'order']
+    
 
 
 def deliver(bot, patient, drug):
-    chest, _ = DRUGS[drug]
-    bot.gotoPlace(f'pos_{drug}_potion')
-    bot.takeByName(chest, 'potion')
-    bot.gotoContainer(f'patient_{patient}_chest')
+    for d in drug :
+        chest, _ = DRUGS[d]
+        bot.gotoPlace(f'pos_{d}_potion')
+        bot.takeByName(chest, 'potion')
+
+    bot.gotoPlace(f'patient_{patient}_chest')
     bot.putByName(f'patient_{patient}_chest', 'potion')
 
 
@@ -148,6 +156,7 @@ def main(rewrite, llm=None):
     memory = Memory(rewrite)
     expected = {}
     print('\n--- doctor speaks, agent listens ---')
+
     for kind, patient, drug, text in SCRIPT:
         rc.cmd(f'say [Doctor] {text}')
         print(f'doctor: {text}')
@@ -167,12 +176,26 @@ def main(rewrite, llm=None):
     else:
         orders = memory.orders
         print(f'\nrule-based nurse says these orders are in force: {orders}')
+    
+    
+    # Interpretation    
+    print("------------------")
+    for i in orders:
+        print(i)
+    print("------------------")
+   
     print('\n--- agent acts ---')
     for patient, drug in orders:
         t = time.time()
-        deliver(bot, patient, drug)
+        
+        # TO REMOVE LATER (the print but just to debug)
+        print("this is the drug", [drug])
+        deliver(bot, patient, [drug])
         print(f'  delivered {drug} to patient {patient}  ({time.time() - t:.0f}s)')
     print('\n--- grader reads the world ---')
+    
+    # TO REMOVE LATER (the print but just to debug)
+    print(expected)
     counts = grade(rc, expected)
     print(f'\nsummary: {counts}')
 

@@ -69,7 +69,26 @@
    "y": -54,
    "z": 34
   },
-
+  "patient_one_chest":{
+    "x": -14,
+    "y": -54,
+    "z": 33 
+  },
+  "patient_two_chest":{
+    "x": -9,
+    "y": -54,
+    "z": 33 
+  },
+  "patient_three_chest":{
+    "x": 1,
+    "y": -54,
+    "z": 33 
+  },
+  "patient_four_chest":{
+    "x": -14,
+    "y": -54,
+    "z": 33 
+  },
  "beds": [
   {
    "name": "white_bed",
