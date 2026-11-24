@@ -30,3 +30,9 @@ server/.paper/
 
 # previous world backups
 server/Hospital_old*/
+*.mp4
+
+# answer cache: keep the main file, not the working copies
+bench/cache_*.json
+# leftovers of trial runs
+privacy/*_test*

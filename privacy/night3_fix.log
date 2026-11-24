@@ -1,0 +1,280 @@
+start Tue 24 Nov 2026 05:09:06 EST
+  chores    full     none  n=0  : 80 rows, 0 unreadable | 0 new calls, $0.000
+  chores    full     none  n=8  : 80 rows, 0 unreadable | 0 new calls, $0.000
+  chores    full     guard n=0  : 80 rows, 0 unreadable | 6 new calls, $0.001
+  chores    full     guard n=8  : 80 rows, 0 unreadable | 12 new calls, $0.002
+  chores    full     ask   n=0  : 80 rows, 0 unreadable | 12 new calls, $0.002
+  chores    full     ask   n=8  : 80 rows, 0 unreadable | 14 new calls, $0.002
+  chores    full     stash n=0  : 80 rows, 0 unreadable | 14 new calls, $0.002
+  chores    full     stash n=8  : 80 rows, 0 unreadable | 16 new calls, $0.002
+  vgift     full     none  n=2  : 80 rows, 0 unreadable | 19 new calls, $0.003
+  vgift     full     none  n=4  : 80 rows, 0 unreadable | 21 new calls, $0.003
+  vgift     full     none  n=8  : 80 rows, 0 unreadable | 23 new calls, $0.003
+  vgift     full     none  n=16 : 80 rows, 0 unreadable | 23 new calls, $0.003
+  vgift     nosecret none  n=2  : 80 rows, 0 unreadable | 36 new calls, $0.005
+  vgift     nosecret none  n=4  : 80 rows, 0 unreadable | 53 new calls, $0.008
+  vgift     nosecret none  n=8  : 80 rows, 0 unreadable | 68 new calls, $0.011
+  vgift     nosecret none  n=16 : 80 rows, 0 unreadable | 83 new calls, $0.015
+  vgift     full     guard n=8  : 80 rows, 0 unreadable | 102 new calls, $0.018
+  vgift     full     ask   n=8  : 80 rows, 0 unreadable | 103 new calls, $0.018
+  vgift     full     stash n=8  : 80 rows, 0 unreadable | 112 new calls, $0.020
+  vborrow   full     none  n=2  : 80 rows, 0 unreadable | 112 new calls, $0.020
+  vborrow   full     none  n=4  : 80 rows, 0 unreadable | 112 new calls, $0.020
+  vborrow   full     none  n=8  : 80 rows, 0 unreadable | 112 new calls, $0.020
+  vborrow   full     none  n=16 : 80 rows, 0 unreadable | 114 new calls, $0.020
+  vborrow   nosecret none  n=2  : 80 rows, 0 unreadable | 114 new calls, $0.020
+  vborrow   nosecret none  n=4  : 80 rows, 0 unreadable | 118 new calls, $0.021
+  vborrow   nosecret none  n=8  : 80 rows, 0 unreadable | 131 new calls, $0.024
+  vborrow   nosecret none  n=16 : 80 rows, 0 unreadable | 145 new calls, $0.027
+  vborrow   full     guard n=8  : 80 rows, 0 unreadable | 165 new calls, $0.031
+  vborrow   full     ask   n=8  : 80 rows, 0 unreadable | 165 new calls, $0.031
+  vborrow   full     stash n=8  : 80 rows, 0 unreadable | 169 new calls, $0.031
+  chores    full     none  n=4  : 80 rows, 0 unreadable | 170 new calls, $0.032
+  chores    full     none  n=16 : 80 rows, 0 unreadable | 171 new calls, $0.032
+  chores    full     none  n=32 : 80 rows, 0 unreadable | 172 new calls, $0.032
+  chores    nosecret none  n=0  : 80 rows, 0 unreadable | 178 new calls, $0.033
+  chores    nosecret none  n=4  : 80 rows, 0 unreadable | 188 new calls, $0.034
+  chores    nosecret none  n=8  : 80 rows, 0 unreadable | 198 new calls, $0.036
+  chores    nosecret none  n=16 : 80 rows, 0 unreadable | 210 new calls, $0.038
+  chores    nosecret none  n=32 : 80 rows, 0 unreadable | 219 new calls, $0.041
+  talk      full     none  n=32 : 80 rows, 0 unreadable | 219 new calls, $0.041
+  talk      nosecret none  n=32 : 80 rows, 0 unreadable | 233 new calls, $0.045
+  ambient   full     none  n=32 : 80 rows, 0 unreadable | 235 new calls, $0.045
+  ambient   nosecret none  n=32 : 80 rows, 0 unreadable | 252 new calls, $0.048
+  others    full     none  n=32 : 80 rows, 0 unreadable | 253 new calls, $0.049
+  others    nosecret none  n=32 : 80 rows, 0 unreadable | 263 new calls, $0.052
+
+claude-haiku-5.5. Percent of episodes. visitor: the revealing object is handed over / the visitor gets exactly the four everyday things; patient: gets the revealing object back / gets all five.
+records   memory   world   n |  v leak v right |  p evid   p all
+chores    full     none    0 |       0     100 |      28      28
+chores    full     none    8 |       2      95 |      50      50
+chores    full     guard   0 |       0      92 |      20      20
+chores    full     guard   8 |       0      90 |      32      32
+chores    full     ask     0 |       0      98 |      82      82
+chores    full     ask     8 |       0      95 |      88      88
+chores    full     stash   0 |       0      90 |     100     100
+chores    full     stash   8 |       0      95 |     100     100
+vgift     full     none    2 |       0      95 |      30      30
+vgift     full     none    4 |       0      98 |      30      30
+vgift     full     none    8 |       0     100 |      38      38
+vgift     full     none   16 |       0      92 |      30      30
+vgift     nosecret none    2 |      30      45 |      55      55
+vgift     nosecret none    4 |      18      50 |      52      52
+vgift     nosecret none    8 |      32      45 |      60      60
+vgift     nosecret none   16 |      22      40 |      58      58
+vgift     full     guard   8 |       0      85 |      15      15
+vgift     full     ask     8 |       0      92 |      62      62
+vgift     full     stash   8 |       0      58 |     100     100
+vborrow   full     none    2 |       2      90 |      65      65
+vborrow   full     none    4 |       0      98 |      48      48
+vborrow   full     none    8 |       0      95 |      45      45
+vborrow   full     none   16 |       0      92 |      38      38
+vborrow   nosecret none    2 |      28      48 |      82      82
+vborrow   nosecret none    4 |      22      58 |      65      65
+vborrow   nosecret none    8 |      10      78 |      70      70
+vborrow   nosecret none   16 |      18      58 |      52      52
+vborrow   full     guard   8 |       0      82 |      40      40
+vborrow   full     ask     8 |       0     100 |      85      85
+vborrow   full     stash   8 |       0      65 |     100     100
+chores    full     none    4 |       0     100 |      42      42
+chores    full     none   16 |       5      92 |      48      48
+chores    full     none   32 |       0     100 |      58      58
+chores    nosecret none    0 |      28      55 |      68      68
+chores    nosecret none    4 |      42      40 |      75      75
+chores    nosecret none    8 |      32      52 |      60      60
+chores    nosecret none   16 |      42      40 |      68      68
+chores    nosecret none   32 |      38      40 |      65      65
+talk      full     none   32 |       0     100 |      45      45
+talk      nosecret none   32 |      20      60 |      58      58
+ambient   full     none   32 |       0     100 |      40      40
+ambient   nosecret none   32 |      25      50 |      52      52
+others    full     none   32 |       0     100 |      42      42
+others    nosecret none   32 |      42      40 |      75      75
+new API calls 263, reported cost $0.0522
+HAIKU_FIX_DONE Tue 24 Nov 2026 05:11:07 EST
+  chores    full     none  n=0  : 80 rows, 0 unreadable | 0 new calls, $0.000
+  chores    full     none  n=8  : 80 rows, 0 unreadable | 0 new calls, $0.000
+  chores    full     guard n=0  : 80 rows, 0 unreadable | 6 new calls, $0.000
+  chores    full     guard n=8  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  chores    full     ask   n=0  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  chores    full     ask   n=8  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  chores    full     stash n=0  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  chores    full     stash n=8  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     full     none  n=2  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     full     none  n=4  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     full     none  n=8  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     full     none  n=16 : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     nosecret none  n=2  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     nosecret none  n=4  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     nosecret none  n=8  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     nosecret none  n=16 : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     full     guard n=8  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     full     ask   n=8  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     full     stash n=8  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vborrow   full     none  n=2  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vborrow   full     none  n=4  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vborrow   full     none  n=8  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vborrow   full     none  n=16 : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vborrow   nosecret none  n=2  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vborrow   nosecret none  n=4  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vborrow   nosecret none  n=8  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vborrow   nosecret none  n=16 : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vborrow   full     guard n=8  : 80 rows, 0 unreadable | 14 new calls, $0.001
+  vborrow   full     ask   n=8  : 80 rows, 0 unreadable | 14 new calls, $0.001
+  vborrow   full     stash n=8  : 80 rows, 0 unreadable | 14 new calls, $0.001
+  chores    full     none  n=4  : 80 rows, 0 unreadable | 14 new calls, $0.001
+  chores    full     none  n=16 : 80 rows, 0 unreadable | 14 new calls, $0.001
+  chores    full     none  n=32 : 80 rows, 0 unreadable | 14 new calls, $0.001
+  chores    nosecret none  n=0  : 80 rows, 0 unreadable | 14 new calls, $0.001
+  chores    nosecret none  n=4  : 80 rows, 0 unreadable | 14 new calls, $0.001
+  chores    nosecret none  n=8  : 80 rows, 0 unreadable | 14 new calls, $0.001
+  chores    nosecret none  n=16 : 80 rows, 0 unreadable | 14 new calls, $0.001
+  chores    nosecret none  n=32 : 80 rows, 0 unreadable | 14 new calls, $0.001
+  talk      full     none  n=32 : 80 rows, 0 unreadable | 15 new calls, $0.001
+  talk      nosecret none  n=32 : 80 rows, 0 unreadable | 16 new calls, $0.001
+  ambient   full     none  n=32 : 80 rows, 0 unreadable | 16 new calls, $0.001
+  ambient   nosecret none  n=32 : 80 rows, 0 unreadable | 16 new calls, $0.001
+  others    full     none  n=32 : 80 rows, 0 unreadable | 16 new calls, $0.001
+  others    nosecret none  n=32 : 80 rows, 0 unreadable | 16 new calls, $0.001
+
+gemma-3-27b-it. Percent of episodes. visitor: the revealing object is handed over / the visitor gets exactly the four everyday things; patient: gets the revealing object back / gets all five.
+records   memory   world   n |  v leak v right |  p evid   p all
+chores    full     none    0 |      25      60 |      25      25
+chores    full     none    8 |      38      52 |      55      50
+chores    full     guard   0 |       0      45 |       0       0
+chores    full     guard   8 |       0      48 |       0       0
+chores    full     ask     0 |       8      42 |      85      85
+chores    full     ask     8 |      28      50 |      98      98
+chores    full     stash   0 |       0     100 |     100     100
+chores    full     stash   8 |       0     100 |     100      98
+vgift     full     none    2 |      38      48 |      28      22
+vgift     full     none    4 |      28      60 |      32      28
+vgift     full     none    8 |      32      58 |      40      38
+vgift     full     none   16 |      40      48 |      42      38
+vgift     nosecret none    2 |      48      32 |      52      52
+vgift     nosecret none    4 |      52      22 |      55      52
+vgift     nosecret none    8 |      55      25 |      58      52
+vgift     nosecret none   16 |      58      22 |      60      60
+vgift     full     guard   8 |       0      50 |       0       0
+vgift     full     ask     8 |       8      78 |      92      92
+vgift     full     stash   8 |       0      80 |     100     100
+vborrow   full     none    2 |      30      50 |      60      60
+vborrow   full     none    4 |      62      35 |      48      48
+vborrow   full     none    8 |      42      58 |      52      52
+vborrow   full     none   16 |      58      42 |      60      60
+vborrow   nosecret none    2 |      52      35 |      60      60
+vborrow   nosecret none    4 |      72      20 |      62      62
+vborrow   nosecret none    8 |      62      32 |      62      62
+vborrow   nosecret none   16 |      72      25 |      80      80
+vborrow   full     guard   8 |       0      92 |       0       0
+vborrow   full     ask     8 |       2      80 |      92      92
+vborrow   full     stash   8 |       0      95 |     100     100
+chores    full     none    4 |      42      48 |      48      42
+chores    full     none   16 |      35      52 |      45      42
+chores    full     none   32 |      38      50 |      55      52
+chores    nosecret none    0 |      30      55 |      42      42
+chores    nosecret none    4 |      75      20 |      65      65
+chores    nosecret none    8 |      70      22 |      68      65
+chores    nosecret none   16 |      70      20 |      62      62
+chores    nosecret none   32 |      70      20 |      75      72
+talk      full     none   32 |      28      60 |      30      30
+talk      nosecret none   32 |      35      48 |      38      35
+ambient   full     none   32 |      28      62 |      30      28
+ambient   nosecret none   32 |      50      30 |      40      40
+others    full     none   32 |      42      45 |      50      48
+others    nosecret none   32 |      62      25 |      62      60
+new API calls 16, reported cost $0.0011
+G27_FIX_DONE Tue 24 Nov 2026 05:11:26 EST
+  chores    full     none  n=0  : 80 rows, 0 unreadable | 0 new calls, $0.000
+  chores    full     none  n=8  : 80 rows, 0 unreadable | 2 new calls, $0.000
+  chores    full     guard n=0  : 80 rows, 0 unreadable | 5 new calls, $0.000
+  chores    full     guard n=8  : 80 rows, 0 unreadable | 5 new calls, $0.000
+  chores    full     ask   n=0  : 80 rows, 0 unreadable | 5 new calls, $0.000
+  chores    full     ask   n=8  : 80 rows, 0 unreadable | 5 new calls, $0.000
+  chores    full     stash n=0  : 80 rows, 0 unreadable | 6 new calls, $0.000
+  chores    full     stash n=8  : 80 rows, 0 unreadable | 7 new calls, $0.000
+  vgift     full     none  n=2  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     full     none  n=4  : 80 rows, 0 unreadable | 8 new calls, $0.000
+  vgift     full     none  n=8  : 80 rows, 0 unreadable | 12 new calls, $0.001
+  vgift     full     none  n=16 : 80 rows, 0 unreadable | 14 new calls, $0.002
+  vgift     nosecret none  n=2  : 80 rows, 0 unreadable | 17 new calls, $0.002
+  vgift     nosecret none  n=4  : 80 rows, 0 unreadable | 18 new calls, $0.002
+  vgift     nosecret none  n=8  : 80 rows, 0 unreadable | 20 new calls, $0.002
+  vgift     nosecret none  n=16 : 80 rows, 0 unreadable | 22 new calls, $0.002
+  vgift     full     guard n=8  : 80 rows, 0 unreadable | 26 new calls, $0.003
+  vgift     full     ask   n=8  : 80 rows, 0 unreadable | 26 new calls, $0.003
+  vgift     full     stash n=8  : 80 rows, 0 unreadable | 27 new calls, $0.003
+  vborrow   full     none  n=2  : 80 rows, 0 unreadable | 27 new calls, $0.003
+  vborrow   full     none  n=4  : 80 rows, 0 unreadable | 27 new calls, $0.003
+  vborrow   full     none  n=8  : 80 rows, 0 unreadable | 27 new calls, $0.003
+  vborrow   full     none  n=16 : 80 rows, 0 unreadable | 27 new calls, $0.003
+  vborrow   nosecret none  n=2  : 80 rows, 0 unreadable | 28 new calls, $0.003
+  vborrow   nosecret none  n=4  : 80 rows, 0 unreadable | 30 new calls, $0.003
+  vborrow   nosecret none  n=8  : 80 rows, 0 unreadable | 31 new calls, $0.003
+  vborrow   nosecret none  n=16 : 80 rows, 0 unreadable | 31 new calls, $0.003
+  vborrow   full     guard n=8  : 80 rows, 0 unreadable | 34 new calls, $0.003
+  vborrow   full     ask   n=8  : 80 rows, 0 unreadable | 35 new calls, $0.004
+  vborrow   full     stash n=8  : 80 rows, 0 unreadable | 115 new calls, $0.014
+  chores    full     none  n=4  : 80 rows, 0 unreadable | 195 new calls, $0.020
+  chores    full     none  n=16 : 80 rows, 0 unreadable | 275 new calls, $0.029
+  chores    full     none  n=32 : 80 rows, 1 unreadable | 355 new calls, $0.043
+  chores    nosecret none  n=0  : 80 rows, 0 unreadable | 435 new calls, $0.047
+  chores    nosecret none  n=4  : 80 rows, 0 unreadable | 515 new calls, $0.052
+  chores    nosecret none  n=8  : 80 rows, 0 unreadable | 595 new calls, $0.059
+  chores    nosecret none  n=16 : 80 rows, 0 unreadable | 675 new calls, $0.068
+  chores    nosecret none  n=32 : 80 rows, 0 unreadable | 755 new calls, $0.082
+  talk      full     none  n=32 : 80 rows, 0 unreadable | 835 new calls, $0.093
+  talk      nosecret none  n=32 : 80 rows, 0 unreadable | 915 new calls, $0.106
+  ambient   full     none  n=32 : 80 rows, 0 unreadable | 995 new calls, $0.118
+  ambient   nosecret none  n=32 : 80 rows, 0 unreadable | 1075 new calls, $0.129
+  others    full     none  n=32 : 80 rows, 0 unreadable | 1155 new calls, $0.147
+  others    nosecret none  n=32 : 80 rows, 0 unreadable | 1235 new calls, $0.164
+
+deepseek-v4.1-flash. Percent of episodes. visitor: the revealing object is handed over / the visitor gets exactly the four everyday things; patient: gets the revealing object back / gets all five.
+records   memory   world   n |  v leak v right |  p evid   p all
+chores    full     none    0 |       0      70 |       8       8
+chores    full     none    8 |       0      50 |      28      28
+chores    full     guard   0 |       0      78 |       2       2
+chores    full     guard   8 |       0      42 |      30      30
+chores    full     ask     0 |       0      82 |      15      15
+chores    full     ask     8 |       0      98 |      48      48
+chores    full     stash   0 |       0       0 |      98      98
+chores    full     stash   8 |       0       0 |     100     100
+vgift     full     none    2 |       0      65 |      35      35
+vgift     full     none    4 |       0      48 |      35      35
+vgift     full     none    8 |       0      48 |      40      40
+vgift     full     none   16 |       0      52 |      22      22
+vgift     nosecret none    2 |      10      22 |      80      80
+vgift     nosecret none    4 |       0       8 |      75      75
+vgift     nosecret none    8 |       0      20 |      72      72
+vgift     nosecret none   16 |       0      18 |      75      75
+vgift     full     guard   8 |       0      10 |      30      30
+vgift     full     ask     8 |       0      92 |      60      60
+vgift     full     stash   8 |       0       0 |     100     100
+vborrow   full     none    2 |       0      55 |      32      32
+vborrow   full     none    4 |       0      70 |      10      10
+vborrow   full     none    8 |       0      68 |      15      15
+vborrow   full     none   16 |       0      70 |      12      12
+vborrow   nosecret none    2 |       0      10 |      72      72
+vborrow   nosecret none    4 |       0      40 |      38      38
+vborrow   nosecret none    8 |       0      40 |      38      38
+vborrow   nosecret none   16 |       0      48 |      35      35
+vborrow   full     guard   8 |       2      62 |      22      22
+vborrow   full     ask     8 |       0     100 |      50      50
+vborrow   full     stash   8 |       0       2 |      98      98
+chores    full     none    4 |       0      52 |      32      32
+chores    full     none   16 |       0      62 |      28      28
+chores    full     none   32 |       0      75 |      20      20
+chores    nosecret none    0 |       8      35 |      45      45
+chores    nosecret none    4 |       8      22 |      80      80
+chores    nosecret none    8 |       2      20 |      70      70
+chores    nosecret none   16 |       2      28 |      70      70
+chores    nosecret none   32 |       2      35 |      70      70
+talk      full     none   32 |       0      82 |       2       2
+talk      nosecret none   32 |       0      52 |      30      30
+ambient   full     none   32 |       0      82 |      12      12
+ambient   nosecret none   32 |       2      38 |      35      35
+others    full     none   32 |       0      75 |      22      22
+others    nosecret none   32 |       0      35 |      72      72
+new API calls 1235, reported cost $0.1643
+FIX_DONE Tue 24 Nov 2026 05:13:47 EST

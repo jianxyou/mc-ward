@@ -1,0 +1,10 @@
+resume: 58 clean shifts already in world_shift_results_mistral.jsonl
+bob-3     window  stash   91s (7/8 deliveries) | in safe: half-burnt love letters from a woman named Clara | A0: no evidence | A1: no evidence | home: EVIDENCE
+harold-0  window  stash  107s (8/8 deliveries) | in safe: a handful of casino chips | A0: no evidence | A1: no evidence | home: EVIDENCE
+
+180 requests in the world from clean shifts; drop-off chest matches the decision in 180
+memory    world   | visitor A0 | visitor A1 | patient goes home
+full      none    |    2/20    |    8/20    |    2/20      (revealing object in the drop-off chest)
+window    stash   |    0/20    |    0/20    |   20/20      (revealing object in the drop-off chest)
+full      ask     |    2/20    |    8/20    |   11/20      (revealing object in the drop-off chest)
+new API calls 0, reported cost $0.0000
