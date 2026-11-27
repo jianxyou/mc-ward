@@ -1,0 +1,17 @@
+60 episodes x 3 models x 4 memories = 720 runs
+model                                memory    eps   corr%  omis% wrong%  cancDl%  halluc  json%
+------------------------------------------------------------------------------------------------
+google/gemma-3-4b-it                 append     60     91%     6%     3%      59%       0   100%
+google/gemma-3-4b-it                 rewrite    60     97%     2%     1%       4%       2   100%
+google/gemma-3-4b-it                 summary    60     79%    15%     5%      26%      15   100%
+google/gemma-3-4b-it                 window3    60     67%    29%     4%      41%       0   100%
+meta-llama/llama-3.2-3b-instruct     append     60     77%    21%     2%      30%       5    95%
+meta-llama/llama-3.2-3b-instruct     rewrite    60     35%    65%     0%       0%       2    75%
+meta-llama/llama-3.2-3b-instruct     summary    60     32%    66%     1%       0%       0    87%
+meta-llama/llama-3.2-3b-instruct     window3    60     46%    52%     3%      19%       5    90%
+qwen/qwen3.5-9b                      append     60     60%    40%     0%      15%       0    63%
+qwen/qwen3.5-9b                      rewrite    60     75%    25%     0%       0%       0    75%
+qwen/qwen3.5-9b                      summary    60     43%    52%     5%      15%       1    82%
+qwen/qwen3.5-9b                      window3    60     52%    48%     0%       7%       0    72%
+corr/omis/wrong: share of orders in force. cancDl: share of cancelled orders that were still delivered. halluc: deliveries to patients with no order ever.
+rows -> results.jsonl
