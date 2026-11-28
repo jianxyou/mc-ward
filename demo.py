@@ -15,7 +15,7 @@ import json
 import os
 import re
 import time
-
+from llm_nurse import ask, AI
 from ward import Bot, Rcon
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -23,7 +23,7 @@ MAP = json.load(open(os.path.join(HERE, 'ward_map.json'), encoding='utf-8'))
 ENTRANCE = MAP['spawn_hint']
 PATIENTS = ['one', 'two', 'three', 'four']
 
-AI = "deepseek-r1:1.5b" # AI Model
+MAX_SLOT = 54
 
 # drug -> (pharmacy chest in ward_map.json, potion type the grader can read back).
 # damage potions are left out: the map gives both the same chest.
@@ -36,9 +36,7 @@ DRUGS = {
 
 # what the doctor says, in order
 SCRIPT = [
-    ('order', 'one', 'strength', 'Give patient one a strength potion.'),
     ('order', 'three', 'regeneration', 'Patient three needs a regeneration potion.'),
-    ('cancel', 'one', 'strength', 'Cancel the strength potion for patient one, blood pressure is up.'),
     ('order', 'four', 'fire_resistance', 'And a fire resistance potion for patient four, please.'),
     ('order', 'four', 'regeneration', 'And a regeneration potion for patient four, please.'),
 ]
@@ -109,7 +107,10 @@ def deliver(bot, patient, drug):
         bot.takeByName(chest, 'potion')
 
     bot.gotoPlace(f'patient_{patient}_chest')
-    bot.putByName(f'patient_{patient}_chest', 'potion')
+    
+    # Put the potions
+    for d in drug :
+        bot.putByName(f'patient_{patient}_chest', 'potion')
 
 
 # ---------------------------------------------------------------- the grader
@@ -117,13 +118,15 @@ def chest_potions(rc, name):
     """Potion types in a named container, e.g. ['strength']. A plain potion is 'potion'."""
     found = []
     for pos in blocks(name):   # read both halves of the double chest
-        listing = rc.cmd('data get block %d %d %d Items' % pos)
-        ids = re.findall(r'id: "minecraft:([a-z_]+)"', listing)
-        for k, item in enumerate(ids):
-            # `data get ... Items` elides nested components as {...}, so ask slot by slot
+              
+        for k in range(MAX_SLOT):
             out = rc.cmd('data get block %d %d %d Items[%d].components."minecraft:potion_contents".potion' % (*pos, k))
+            if "Found no elements" in out:
+                break
+            print(k)
             m = re.search(r'"minecraft:([a-z_]+)"', out)
-            found.append(m.group(1) if m else item)
+            found.append(m.group(1) if m else 'potion')
+            
     return found
 
 
@@ -132,7 +135,7 @@ def grade(rc, expected):
     counts = {'correct': 0, 'omission': 0, 'commission': 0, 'wrong drug': 0}
     for p in PATIENTS:
         got, want = chest_potions(rc, f'patient_{p}_chest'), expected.get(p)
-        if want and got == [want]:
+        if want and got == want:
             verdict = 'correct'
         elif want and not got:
             verdict = 'omission'
@@ -144,7 +147,7 @@ def grade(rc, expected):
             verdict = 'nothing due'
         if verdict in counts:
             counts[verdict] += 1
-        print(f'  patient {p:5s}  bedside chest: {", ".join(got) or "empty":<22}  expected: {want or "nothing":<16}  -> {verdict}')
+        print(f'  patient {p:5s}  bedside chest: {", ".join(got) or "empty":<22}  expected: {", ".join(got) or "nothing":<16}  -> {verdict}')
     return counts
 
 
@@ -162,7 +165,9 @@ def main(rewrite, llm=None):
         print(f'doctor: {text}')
         memory.hear(kind, patient, drug, text)
         if kind == 'order':
-            expected[patient] = drug
+            if patient not in expected:
+                expected[patient] = [] # To initialize
+            expected[patient].append(drug)
         else:
             expected.pop(patient, None)
         time.sleep(1)
@@ -170,35 +175,24 @@ def main(rewrite, llm=None):
     for n in memory.notes:
         print(f'  - {n}')
     if llm:
-        import llm_nurse
-        orders = llm_nurse.ask(memory.notes, model=llm)
+        orders = ask(memory.notes, model=llm)
         print(f'\nnurse model ({llm}) says these orders are in force: {orders}')
     else:
+        # To test : orders = [('three', 'regeneration'), ('four', ['fire_resistance', 'regeneration'])]
         orders = memory.orders
         print(f'\nrule-based nurse says these orders are in force: {orders}')
     
-    
-    # Interpretation    
-    print("------------------")
-    for i in orders:
-        print(i)
-    print("------------------")
-   
     print('\n--- agent acts ---')
     for patient, drug in orders:
         t = time.time()
-        
-        # TO REMOVE LATER (the print but just to debug)
-        print("this is the drug", [drug])
-        deliver(bot, patient, [drug])
+        if isinstance(drug,str):
+            drug = [drug]
+        deliver(bot, patient, drug)
         print(f'  delivered {drug} to patient {patient}  ({time.time() - t:.0f}s)')
     print('\n--- grader reads the world ---')
-    
-    # TO REMOVE LATER (the print but just to debug)
-    print(expected)
+
     counts = grade(rc, expected)
     print(f'\nsummary: {counts}')
-
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()

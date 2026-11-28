@@ -1,0 +1,149 @@
+[{
+    "id": "SCRIPT1",
+    "orders": [
+    ["order", "one", "strength", "Patient one needs a strength potion."],
+    ["order", "two", "regeneration", "Patient two needs a regeneration potion."],
+    ["order", "three", "fire_resistance", "Patient three needs a fire_resistance potion."],
+    ["order", "four", "placebo", "Patient four needs a placebo potion."]
+    ],
+    "expected": [["one", ["strength"]], ["two", ["regeneration"]], ["three", ["fire_resistance"]], ["four", ["placebo"]]]
+},
+{
+    "id": "SCRIPT2",
+    "orders": [
+    ["order", "one", "strength", "Patient one needs a strength potion."],
+    ["order", "one", "regeneration", "Patient one needs a regeneration potion."],
+    ["order", "two", "fire_resistance", "Patient two needs a fire_resistance potion."],
+    ["order", "two", "placebo", "Patient two needs a placebo potion."]
+    ],
+    "expected": [["one", ["strength", "regeneration"]], ["two", ["fire_resistance", "placebo"]]]
+},
+{
+    "id": "SCRIPT3",
+    "orders": [
+    ["order", "one", "strength", "Patient one needs a strength potion."],
+    ["order", "one", "regeneration", "Patient one needs a regeneration potion."],
+    ["order", "one", "fire_resistance", "Patient one needs a fire_resistance potion."]
+    ],
+    "expected": [["one", ["strength", "regeneration", "fire_resistance"]]]
+},
+{
+    "id": "SCRIPT4",
+    "orders": [
+    ["order", "one", "strength", "Patient one needs a strength potion."],
+    ["order", "one", "regeneration", "Patient one needs a regeneration potion."],
+    ["order", "one", "fire_resistance", "Patient one needs a fire_resistance potion."],
+    ["order", "one", "placebo", "Patient one needs a placebo potion."]
+    ],
+    "expected": [["one", ["strength", "regeneration", "fire_resistance", "placebo"]]]
+},
+{
+    "id": "SCRIPT5",
+    "orders": [
+    ["order", "one", "strength", "Patient one needs a strength potion."],
+    ["order", "one", "strength", "Patient one needs a strength potion."]
+    ],
+    "expected": [["one", ["strength", "strength"]]]
+},
+{
+    "id": "SCRIPT6",
+    "orders": [
+    ["order", "one", "strength", "Patient one needs a strength potion."],
+    ["order", "two", "regeneration", "Patient two needs a regeneration potion."],
+    ["order", "one", "placebo", "Patient one needs a placebo potion."]
+],
+    "expected": [["one", ["strength"]], ["two", ["regeneration"]], ["one", ["placebo"]]]
+},
+{
+    "id": "SCRIPT7",
+    "orders": [
+    ["order", "one", "strength", "Patient one needs a strength potion."],
+    ["order", "one", "fire_resistance", "Patient one needs a fire_resistance potion."],
+    ["order", "two", "regeneration", "Patient two needs a regeneration potion."],
+    ["order", "one", "placebo", "Patient one needs a placebo potion."]
+],
+    "expected": [["one", ["strength", "fire_resistance"]], ["two", ["regeneration"]], ["one", ["placebo"]]]
+},
+{
+    "id": "SCRIPT8",
+    "orders": [
+    ["order", "one", "strength", "Patient one needs a strength potion."],
+    ["order", "two", "regeneration", "Patient two needs a regeneration potion."],
+    ["order", "one", "placebo", "Patient one needs a placebo potion."],
+    ["order", "two", "fire_resistance", "Patient two needs a fire_resistance potion."],
+    ["order", "one", "fire_resistance", "Patient one needs a fire_resistance potion."],
+    ["order", "two", "placebo", "Patient two needs a placebo potion."]
+],
+    "expected": [["one", ["strength"]], ["two", ["regeneration"]], ["one", ["placebo"]], ["two", ["fire_resistance"]], ["one", ["fire_resistance"]], ["two", ["placebo"]]]
+},
+{
+    "id": "SCRIPT9",
+    "orders":  [
+    ["order", "one", "strength", "Patient one needs a strength potion."],
+    ["order", "two", "regeneration", "Patient two needs a regeneration potion."],
+    ["order", "one", "placebo", "Patient one needs a placebo potion."],
+    ["order", "two", "fire_resistance", "Patient two needs a fire_resistance potion."],
+    ["order", "one", "fire_resistance", "Patient one needs a fire_resistance potion."],
+    ["order", "two", "placebo", "Patient two needs a placebo potion."],
+    ["order", "four", "placebo", "Patient four needs a placebo potion."],
+    ["order", "two", "fire_resistance", "Patient two needs a fire_resistance potion."],
+    ["order", "three", "regeneration", "Patient three needs a regeneration potion."],
+    ["order", "two", "strength", "Patient two needs a strength potion."]
+],
+    "expected": [["one", ["strength"]], ["two", ["regeneration"]], ["one", ["placebo"]], ["two", ["fire_resistance"]], ["one", ["fire_resistance"]], ["two", ["placebo"]], ["four", ["placebo"]], ["two", ["fire_resistance"]], ["three", ["regeneration"]], ["two", ["strength"]]]
+},
+{
+    "id": "SCRIPT10",
+    "orders": [
+    ["order", "one", "strength", "Patient one needs a regeneration potion."]
+],
+    "expected": [["one", ["regeneration"]]]
+},
+{
+    "id": "SCRIPT11",
+    "orders": [
+    ["order", "one", "strength", "Patient one needs a regeneration potion."],
+    ["order", "two", "fire_resistance", "Patient one needs a strength potion."]
+
+],
+    "expected": [["one", ["regeneration"]], ["two", ["strength"]]]
+},
+{
+    "id": "SCRIPT12",
+    "orders": [
+    ["order", "one", "strength", "Patient un a besoin a strength potion."],
+    ["order", "two", "fire_resistance", "Patient two needs de la potion de resistance au feux."]
+],
+    "expected": [["one", ["strength"]], ["two", ["fire_resistance"]]]
+},
+{
+    "id": "SCRIPT13",
+    "orders": [
+    ["order", "one", "strength", "Take it yourself!"],
+    ["order", "two", "strength", "Patient two needs a strength potion"]
+],
+    "expected": [["two", ["strength"]]]
+},
+{
+    "id": "SCRIPT14",
+    "orders": [
+    ["order", "one", "strength", "Patient one needs a strength potion."],
+    ["order", "two", "regeneration", "Patient two needs a regeneration potion."],
+    ["cancel", "two", "regeneration", "Patient two needs a regeneration potion."],
+    ["order", "one", "placebo", "Patient one needs a placebo potion."]
+],
+    "expected": [["one", ["strength", "placebo"]]]
+},
+{
+    "id": "SCRIPT15",
+    "orders": [
+    ["order", "one", "strength", "Patient one needs a strength potion."],
+    ["order", "two", "regeneration", "Patient two needs a regeneration potion."],
+    ["order", "one", "strength", "Patient one needs a strength potion."],
+    ["order", "three", "placebo", "Patient three needs a placebo potion."],
+    ["cancel", "one", "strength", "Patient one needs a strength potion."]
+],
+    "expected": [["two", ["regeneration"]], ["three", ["placebo"]]]
+}
+
+]

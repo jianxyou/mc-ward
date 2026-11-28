@@ -28,26 +28,35 @@ DRUGS = ['strength', 'regeneration', 'fire_resistance', 'placebo']
 # llama3:2:latest
 # deepseek-r1:1.5b
 # But needs to be the same as demo.py
-AI = "deepseek-r1:1.5b"
+AI = "qwen3.5:4b"
 
-PROMPT = """You are a nurse on a ward with patients one, two, three and four.
-The pharmacy has these potions: {drugs}.
-Below are the doctor's messages your memory has kept, oldest first.
-List every order that is still in force right now. An order that the doctor
-cancelled is not in force. Do not invent orders.
+PROMPT = """
+You are a nurse on a ward. Patients: one, two, three, four.
+Drugs: {drugs}.
 
-Doctor's messages:
+Messages, oldest first:
 {notes}
 
-Answer with JSON only, in this exact shape:
-{{"orders": [{{"patient": "one", "drug": ["strength"]}}]}}
-And merge adjacent JSON lines {{"orders": [{{"patient": "X", "drug": ["Y"]}}]}} with the same "patient" 
-into one line by joining "drug" arrays in order. Do not merge non-adjacent lines, separate them. Return only valid JSON lines, no outer braces. 
+Task: list the orders still in force.
 
-Ex of same "patient" adjacent lines expected shape : 
-{{"orders": [{{"patient": "one", "drug": ["regeneration"]}}]}} 
-{{"orders": [{{"patient": "one", "drug": ["fire_resistance"]}}]}}
-Becomes this {{"orders": [{{"patient": "one", "patient": ["regeneration", "fire_resistance"]}}]}}
+Rules:
+1. A 'cancel' removes the matching order (same client, same item). Never invent orders. Keep duplicates.
+2. Go through the remaining orders top to bottom. Compare each order ONLY with the previous remaining order. Same patient : add its drug to the last entry. Different patient: start a new entry
+3. A patient never merge across other patients, even if they return later.
+4. Only includes patients that appears in the messages. 
+
+Output only one JSON object:
+{{"orders": [{{"patient": "one", "drug": ["strength"]}}]}}
+
+Examples:
+- one: strength; one: regeneration; two: fire_resistance; one: placebo
+→ {{"orders": [{{"patient": "one", "drug": ["strength", "regeneration"]}}, {{"patient": "two", "drug": ["fire_resistance"]}}, {{"patient": "one", "drug": ["placebo"]}}]}}
+
+- one: strength; two: regeneration; two cancels regeneration; one: fire_resistance
+→ {{"orders": [{{"patient": "one", "drug": ["strength", "fire_resistance"]}}]}}
+
+- one: regeneration
+→ {{"orders": [{{"patient": "one", "drug": ["regeneration"]}}]}}
 
 """
 
@@ -56,11 +65,14 @@ def ask(notes, model=AI, temperature=0.0):
     """notes: list of doctor messages as the memory kept them. Returns [(patient, drug), ...]."""
     prompt = PROMPT.format(drugs=', '.join(DRUGS),
                            notes='\n'.join(f'- {n}' for n in notes) or '- (nothing)')
-    body = json.dumps({'model': model, 'prompt': prompt, 'format': 'json', 'stream': False,
+
+    body = json.dumps({'model': model, 'prompt': prompt, 'format': 'json', 'think': False,'stream': False,
                        'options': {'temperature': temperature}}).encode()
+
     req = urllib.request.Request(OLLAMA, data=body, headers={'Content-Type': 'application/json'})
-    with urllib.request.urlopen(req, timeout=180) as r:
+    with urllib.request.urlopen(req, timeout=120) as r:
         return parse(json.loads(r.read())['response'])
+
 
 
 def parse(text):
@@ -72,6 +84,7 @@ def parse(text):
         return []
     items = data.get('orders', []) if isinstance(data, dict) else data
     out = []
+
     for it in items if isinstance(items, list) else []:
         if not isinstance(it, dict):
             continue
